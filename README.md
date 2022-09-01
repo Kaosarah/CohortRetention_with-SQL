@@ -53,23 +53,30 @@ where dupNo =1;
  ---- Revenue generated from 01/12/2010 and 09/12/2011
  SELECT SUM ([Quantity]* [UnitPrice])
  FROM #Cleandata
-
- --Cohort
+ 
+----Top (10) customers
+  SELECT TOP 10 [CustomerID], ROUND(SUM ([Quantity]* [UnitPrice]),0) AS Sales
+  FROM #Cleandata
+  GROUP BY [CustomerID]
+  ORDER BY Sales DESC 
   
+ --- Getting the first day of purchase and months of purchase of each customer
+ 
   SELECT
    DISTINCT [CustomerID],
-   MIN(InvoiceDate) AS FirstPurchase,
+   MIN(InvoiceDate) AS FirstPurchase,---first day of purchase
    DATEFROMPARTS(YEAR(
    MIN(InvoiceDate) 
-   ), MONTH(MIN(InvoiceDate)), 1) AS PurchaseMonth
+   ), MONTH(MIN(InvoiceDate)), 1) AS PurchaseMonth --- month of purchase of each customer
    INTO #Cohort
    FROM #Cleandata
    GROUP BY [CustomerID]
 
    SELECT *
    FROM #Cohort;
-
-  -- Cohort Analysis
+   
+ --- Getting the Cohort Index
+ 
  WITH analysis AS ( SELECT 
   cd.[InvoiceNo],
   cd.[StockCode], 
@@ -85,6 +92,7 @@ where dupNo =1;
   FROM #Cleandata cd
   LEFT JOIN  #Cohort c
   ON cd.CustomerID = c.CustomerID),
+  
   Cohort_Index AS (
   SELECT *, 
    Year_dif*12 + Month_dif + 1 AS Cohort_index
@@ -92,16 +100,19 @@ where dupNo =1;
   SELECT *
   into #Cohort_table
   FROM Cohort_Index
+  
   --Cohort_table with cohort_index
   SELECT *
   FROM #Cohort_table
 
   --Total Number of Cohort index(13)
+  
   SELECT DISTINCT Cohort_index
   FROM #Cohort_table
   ORDER BY 1 ;
 
-  ----Pivot
+  ----Pivot cohort table 
+  
   SELECT *
   into #cohort_analys
   from(
@@ -128,7 +139,6 @@ where dupNo =1;
    [13])
    ) AS Pivotcohort_table
    ORDER BY PurchaseMonth
-   
 
    ---Cohort retention result
    SELECT *
@@ -137,5 +147,16 @@ where dupNo =1;
    
 ```
 
+## Cohort retention analysis result 
+
+![Screenshot (110)](https://user-images.githubusercontent.com/109418747/187843368-10c8a48f-b6ab-468d-ba06-9d99f19dfb9e.png)
+
   
+![Screenshot (114)](https://user-images.githubusercontent.com/109418747/187849882-bf34470b-6b37-437f-8afb-6e80f2a16d7d.png)
+
+
+![Screenshot (115)](https://user-images.githubusercontent.com/109418747/187849920-2ac467f8-41f0-46ab-a244-734df7cbde1d.png)
+
+## Findings and Recommendations
+ **$8,878,811** was generated from 01/12/2010 and 09/12/2011
 
