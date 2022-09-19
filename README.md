@@ -4,8 +4,9 @@
 This is a transnational data set of transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retail.The company mainly sells unique all-occasion gifts and many of their customers are wholesalers.
 
 ## Data source 
-This data set was gotten from UCI Machine Learning Repository, access through the link below;
-https://archive.ics.uci.edu/ml/machine-learning-databases/00352/
+This data set was gotten from UCI Machine Learning Repository, access through the link [here](
+https://archive.ics.uci.edu/ml/machine-learning-databases/00352/).
+
 The data has 7 columns and 541909 rows.
 
 ## Business Objective
@@ -189,9 +190,9 @@ All customers should be educated about the products.
 Valuable customers should be separated from the rest and go an extra mile to make sure that at least they are getting what they have signed up for likewise customers that are most likely to churn.
 
 The marketing strategies should be review and improve putting into consideration what the customers complained about and also countries with low sales like Saudi Arabia, Brazil, Czech republic and others. The country should also consider giving discount on goods bought.
-
-**Link to interactive tableau report**
-https://public.tableau.com/app/profile/lawal.kaosarah/viz/Cohort_retention/COHORTRETENTION#1
+ 
+**Link to interactive pages [here](
+https://public.tableau.com/app/profile/lawal.kaosarah/viz/Cohort_retention/COHORTRETENTION#1)**.
 
 
 
